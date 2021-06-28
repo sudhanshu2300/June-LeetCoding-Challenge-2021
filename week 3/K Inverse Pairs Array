@@ -1,0 +1,22 @@
+class Solution {
+    int mod = (int)1e9+7;
+    
+    public int kInversePairs(int n, int k) {
+        int sum[][] = new int[n+1][k+1],t=0,ind;
+        for(int i=1;i<=n;++i){
+            for(int j=0;j<=k;++j){
+                ind = Math.min(i-1,j);
+                if(j==0) t = 1;
+                else if(j<=(i*(i-1))/2) t = mod((long)sum[i-1][j] - (ind == j ? 0 : sum[i-1][j-ind-1]));
+                else t=0;
+                sum[i][j] = mod((j==0 ? 0 : sum[i][j-1])+(long)t);
+            }
+        }
+        return t;
+    }
+    
+    private int mod(long a){
+        a%=mod; 
+        return (int)(a<0?a+mod:a);
+    }
+}

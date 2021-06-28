@@ -1,0 +1,36 @@
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> arr=new ArrayList();
+        generateAll(new char[2*n],0,arr);
+        return arr;
+    }
+    public static void generateAll(char[] curr,int pos,List<String> arr){
+        if(pos==curr.length){
+            if(valid(curr)){
+                arr.add(new String(curr));
+            }
+        }
+        else{
+            curr[pos]='(';
+            generateAll(curr,pos+1,arr);
+            curr[pos]=')';
+            generateAll(curr,pos+1,arr);
+        }
+    }
+    public static boolean valid(char[] curr){
+        int balance=0;
+        for(char ch:curr){
+            if(ch=='('){
+                balance++;
+            }
+            else{
+                balance--;
+            }
+            if(balance<0){
+            return false;
+        }
+        }
+        
+        return (balance==0);
+    }
+}

@@ -1,0 +1,21 @@
+class Solution {
+  
+    public int maxResult(int[] nums, int k) {
+        Deque<Integer> dq = new ArrayDeque<>();
+        dq.add(0);
+        
+        for(int i = 1; i < nums.length; i++){
+            nums[i] += nums[dq.peek()];
+            
+            
+            if(i - k == dq.peek())dq.poll();
+            
+           
+			
+			
+            while(dq.size() > 0 && nums[dq.peekLast()] <= nums[i])dq.pollLast();
+            dq.add(i);
+        }
+        return nums[nums.length-1];
+    }
+}

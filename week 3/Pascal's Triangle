@@ -1,0 +1,32 @@
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> res = new LinkedList<>();
+        List<Integer> row = new LinkedList<>();
+        row.add(1);
+        res.add(row);
+        if(numRows == 1) {
+            return res;
+        }
+        row = new LinkedList<>();
+        row.add(1);
+        row.add(1);
+        res.add(row);
+        if(numRows == 2) {
+            return res;
+        }
+        
+        for(int i = 3; i <= numRows; i++) {
+            int prev = 0;
+            List<Integer> newRow = new LinkedList<>();
+            for(int r : row) {
+                newRow.add(r + prev);
+                prev = r;
+            }
+            newRow.add(1);
+            res.add(newRow);
+            row = newRow;
+        }
+        
+        return res;
+    }
+}

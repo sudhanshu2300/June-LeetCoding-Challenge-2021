@@ -1,0 +1,63 @@
+class Solution {
+    
+    
+    public int[] findRedundantConnection(int[][] edges) {
+        
+        
+        int n = edges.length;
+        int res[] = new int[2];
+        
+        int parent[] = new int[n+1];   // For n nodes, there will be n parents + node 0 index.
+        
+        // Mark all parents of node as node value initially
+        
+        for (int i=0; i<n+1; i++) {
+            parent[i] = i;
+        }
+
+        
+        // Loop for all edges and check their two nodes connection
+        
+        for (int i=0; i<n; i++) {
+            
+            int parentNode1 = find (parent, edges[i][0]);
+            int parentNode2 = find (parent, edges[i][1]);
+            
+            if (parentNode1 == parentNode2) {
+                
+                res[0] = edges[i][0];
+                res[1] = edges[i][1];
+                break;
+                
+            }
+            
+            // To union the given two nodes
+            
+            parent[parentNode1] = parentNode2;
+            
+        }
+        
+        
+        return res;
+        
+    }
+    
+    
+    // To check if the nodes have common parents or connections
+    
+    public int find (int parent[], int node) {
+        
+        // If parent value is same as the node (default set), return it.
+        
+        if (parent[node] == node) {
+            return node;
+        }
+        
+        // Else return parent of this node's parent.
+        
+        return find (parent, parent[node]);
+        
+    }
+    
+    
+}
