@@ -1,0 +1,39 @@
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(p==root || q==root){
+            return root;
+        }
+        ArrayList<TreeNode> a=ans(root,p);
+        ArrayList<TreeNode> b=ans(root,q);
+        int m=a.size()-1;
+        int n=b.size()-1;
+       
+        while(m>=0 && n>=0 && a.get(m)==b.get(n)){
+                m--;
+                n--;
+            }
+        return a.get(m+1);
+    }
+    public static ArrayList<TreeNode> ans(TreeNode root,TreeNode data){
+         ArrayList<TreeNode> ar=new ArrayList();
+        if(root==null){
+            ArrayList<TreeNode> n = new ArrayList();
+            return n;
+        }
+        if(root==data){
+            ar.add(data);
+            return ar;
+        }
+        ArrayList<TreeNode> aL=ans(root.left,data);
+        if(aL.size()>0){
+            aL.add(root);
+            return aL;
+        }
+        ArrayList<TreeNode> aR=ans(root.right,data);
+        if(aR.size()>0){
+            aR.add(root);
+            return aR;
+        }
+        return new ArrayList();
+    }
+}
